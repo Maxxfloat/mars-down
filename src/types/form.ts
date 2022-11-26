@@ -22,3 +22,9 @@ export type NoteData = {
   markdown: string;
   tags: Tag[];
 };
+
+export type SimplifiedNote = {
+  tags: Tag[];
+  title: string;
+  id: string;
+};
