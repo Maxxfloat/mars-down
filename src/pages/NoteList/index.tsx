@@ -2,13 +2,22 @@ import { useState, FC, useMemo } from "react";
 import { Row, Col, Stack, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ReactSelect from "react-select";
-import { Note, Tag } from "../../types/form";
+import { Note, SimplifiedNote, Tag } from "../../types/form";
 import EditTagsModal from "./EditTagsModal";
 import NoteCard from "./NoteCard";
 
-const index: FC<{ availableTags: Tag[]; notes: Note[] }> = ({
+type NoteListProps = {
+  availableTags: Tag[];
+  notes: SimplifiedNote[];
+  onDeleteTag: (id: string) => void;
+  onUpdateTag: (id: string, label: string) => void;
+};
+
+const index: FC<NoteListProps> = ({
   availableTags,
   notes,
+  onDeleteTag,
+  onUpdateTag,
 }) => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [title, setTitle] = useState("");
@@ -83,6 +92,8 @@ const index: FC<{ availableTags: Tag[]; notes: Note[] }> = ({
         ))}
       </Row>
       <EditTagsModal
+        onUpdateTag={onUpdateTag}
+        onDeleteTag={onDeleteTag}
         availableTags={availableTags}
         show={editTagsModalIsOpen}
         handleClose={() => setEditTagsModalIsOpen(false)}
