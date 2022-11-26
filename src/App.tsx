@@ -26,17 +26,17 @@ function App() {
   }, [notes, tags]);
 
   const onCreateNote = ({ tags, ...data }: NoteData) => {
-    setNotes((pervNotes) => {
+    setNotes((prevNotes) => {
       return [
-        ...pervNotes,
+        ...prevNotes,
         { ...data, id: uuidV4(), tagIds: tags.map((tag) => tag.id) },
       ];
     });
   };
 
   const onUpdateNote = (id: string, { tags, ...data }: NoteData) => {
-    setNotes((pervNotes) => {
-      return pervNotes.map((note) => {
+    setNotes((prevNotes) => {
+      return prevNotes.map((note) => {
         if (note.id === id) {
           return { ...note, ...data, tagIds: tags.map((tag) => tag.id) };
         } else {
@@ -47,13 +47,30 @@ function App() {
   };
 
   const onDeleteNote = (id: string) => {
-    setNotes((pervNote) => {
-      return pervNote.filter((note) => note.id !== id);
+    setNotes((prevNote) => {
+      return prevNote.filter((note) => note.id !== id);
     });
   };
 
   const onAddTag = (tag: Tag) => {
-    setTags((pervTag) => [...pervTag, tag]);
+    setTags((prevTag) => [...prevTag, tag]);
+  };
+
+  const updateTag = (id: string, label: string) => {
+    setTags((prevTags) => {
+      return prevTags.map((tag) => {
+        if (tag.id === id) {
+          return { ...tag, label };
+        } else {
+          return tag;
+        }
+      });
+    });
+  };
+  const deleteTag = (id: string) => {
+    setTags((prevTags) => {
+      return prevTags.filter((tag) => tag.id !== id);
+    });
   };
 
   return (
@@ -80,7 +97,6 @@ function App() {
             element={
               <EditNote
                 onSubmit={onUpdateNote}
-                // onDelete={onDeleteNote}
                 onAddTag={onAddTag}
                 availableTags={tags}
               />
