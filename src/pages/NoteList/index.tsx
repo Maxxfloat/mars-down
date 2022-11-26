@@ -69,6 +69,10 @@ const index: FC<NoteListProps> = ({
             <Form.Group controlId="tags">
               <Form.Label>Tags</Form.Label>
               <ReactSelect
+                options={availableTags.map((t) => ({
+                  label: t.label,
+                  value: t.id,
+                }))}
                 value={selectedTags.map((t) => ({
                   label: t.label,
                   value: t.id,
