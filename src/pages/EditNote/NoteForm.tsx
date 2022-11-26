@@ -62,7 +62,7 @@ const NoteForm: FC<NoteFormProps> = ({
                 onCreateOption={(label) => {
                   const newTag = { label, id: uuidV4() };
                   onAddTag(newTag);
-                  setSelectedTags((pervTags) => [...pervTags, newTag]);
+                  setSelectedTags((prevTags) => [...prevTags, newTag]);
                 }}
                 onChange={(tags) => {
                   tags.map((t) => ({ label: t.label, id: t.value }));
