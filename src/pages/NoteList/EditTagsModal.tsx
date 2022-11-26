@@ -18,7 +18,7 @@ const EditTagsModal: FC<EditTagsMotalProps> = ({
 }) => {
   return (
     <Modal show={show} onHide={handleClose}>
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>Edit Tags</Modal.Title>
       </Modal.Header>
       <Modal.Body>
